@@ -69,6 +69,7 @@ done
 n=`ps -ef |grep "mongos --configdb" |grep -v grep |wc -l`
 if [[ $n -ne 1 ]];then
 echo "mongos tried to start 3 times but failed!"
+exit 1
 fi
 
 #add shard
@@ -83,10 +84,11 @@ if [[ $? -eq 0 ]];then
 echo "mongo shard added succeefully."
 else
 echo "mongo shard added failed!"
+exit 1
 fi
 
 
-#set mongod auto start
+#set mongos auto start
 cat > /etc/init.d/mongod1 <<EOF
 #!/bin/bash
 #chkconfig: 35 84 15
@@ -102,7 +104,7 @@ fi
 mongos --configdb crepset/10.0.0.240:27019,10.0.0.241:27019,10.0.0.242:27019 --bind_ip 0.0.0.0 --port 27017 --logpath /var/log/mongodb/mongos.log --fork --keyFile /etc/mongokeyfile --sslMode requireSSL --sslPEMKeyFile /etc/MongoAuthCert.pem --sslPEMKeyPassword Mongo123
 }
 stop() {
-pkill mongod
+pkill mongos
 }
 restart() {
 stop

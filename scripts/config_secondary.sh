@@ -51,6 +51,7 @@ if [[ $n -eq 1 ]];then
     echo "mongod config replica set started successfully"
 else
     echo "mongod config replica set started failed!"
+	exit 1
 fi
 
 

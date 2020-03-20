@@ -76,6 +76,7 @@ if [[ $n -eq 1 ]];then
 echo "replica set started successfully"
 else
 echo "replica set started failed!"
+exit 1
 fi
 
 

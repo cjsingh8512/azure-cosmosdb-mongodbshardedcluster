@@ -45,6 +45,7 @@ if [[ $n -eq 1 ]];then
     echo "mongod started successfully"
 else
     echo "mongod started failed!"
+	exit 1
 fi
 
 #create users
@@ -57,6 +58,7 @@ if [[ $? -eq 0 ]];then
     echo "mongo user added succeefully."
 else
     echo "mongo user added failed!"
+	exit 1
 fi
 
 #stop mongod
@@ -106,6 +108,7 @@ done
 n=`ps -ef |grep "mongod --configsvr"|grep -v grep |wc -l`
 if [[ $n -ne 1 ]];then
     echo "mongo config replica set tried to start 3 times but failed!"
+	exit 1
 fi
 
 
@@ -117,9 +120,10 @@ rs.initiate(config)
 exit
 EOF
 if [[ $? -eq 0 ]];then
-    echo "mongod config replica set initiated succeefully."
+    echo "mongod config replica set initiated successfully."
 else
-    echo "mongod config replica set initiated failed!"
+    echo "mongod config replica set initiation failed!"
+	exit 1
 fi
 
 

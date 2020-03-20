@@ -14,9 +14,6 @@
     "dnsNamePrefix": {
       "value": "mongounique"
     },
-    "environment": {
-      "value": "AzureCloud"
-    },
     "numDataDisks": {
       "value": "1"
     },

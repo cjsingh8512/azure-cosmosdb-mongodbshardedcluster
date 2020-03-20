@@ -78,6 +78,7 @@ if [[ $n -eq 1 ]];then
 	echo "mongod started successfully"
 else
 	echo "mongod started failed!"
+	exit 1
 fi
 
 
@@ -91,6 +92,7 @@ if [[ $? -eq 0 ]];then
 	echo "mongo user added succeefully."
 else
 	echo "mongo user added failed!"
+	exit 1
 fi
 
 #stop mongod
@@ -131,6 +133,7 @@ done
 n=`ps -ef |grep "mongod --dbpath /var/lib/mongo/" |grep -v grep |wc -l`
 if [[ $n -ne 1 ]];then
 	echo "mongo replica set tried to start 3 times but failed!"
+	exit 1
 fi
 
 
@@ -146,6 +149,7 @@ if [[ $? -eq 0 ]];then
 	echo "replica set initiation succeeded."
 else
 	echo "replica set initiation failed!"
+	exit 1
 fi
 
 
@@ -166,6 +170,7 @@ do
 		echo "adding server 10.0.0.${a} successfully"
 	else
 		echo "adding server 10.0.0.${a} failed!"
+		exit 1
 	fi
 done
 
