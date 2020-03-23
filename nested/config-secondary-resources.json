@@ -136,7 +136,19 @@
             "caching": "ReadWrite",
             "createOption": "FromImage"
           },
-          "dataDisks": "[reference('diskSelectionConfig').outputs.dataDiskArray.value]"
+          "copy": [
+            {
+              "name": "dataDisks",
+              "count": "[parameters('numDataDisks')]",
+              "input": {
+                "name": "[concat(parameters('namespace'), parameters('vmbasename'), 'vm', '_datadisk', copyIndex('dataDisks'))]",
+                "diskSizeGB": "[parameters('sizeOfDataDiskInGB')]",
+                "lun": "[copyIndex('dataDisks')]",
+                "caching": "ReadWrite",
+                "createOption": "Empty"
+              }
+            }
+          ]
         },
         "networkProfile": {
           "networkInterfaces": [
