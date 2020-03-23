@@ -22,25 +22,23 @@ The nodes are under the same subnet 10.0.0.0/24. Except the router server, the o
 <img src="https://raw.githubusercontent.com/cjsingh8512/azure-cosmosdb-mongodbshardedcluster/users/chsi/images/Mongo Sharded Cluster.png" />
 
 ## Important Notice
-1. Each VM of the shard uses raid0 to improve performance. The number and the size of data disks(setup raid0) on each shard VM are determined by yourself. However, there is number and size of data disks limit per the VM size. Before you set number and size of data disks, please refer to the link https://azure.microsoft.com/en-us/documentation/articles/virtual-machines-linux-sizes/ for the correct choice
+1. Each VM of the shard uses managed ssd's to improve performance. The number and the size of data disks on each shard VM are determined by yourself. However, there is number and size of data disks limit per the VM size. Before you set number and size of data disks, please refer to the link https://azure.microsoft.com/en-us/documentation/articles/virtual-machines-linux-sizes/ for the correct choice
 2. Mongo router server is enabled with SSL. The certificate used for SSL has the same subject name as the FQDN of the server. Therefore, if you want to connect to the server from a driver or desktop client without enabling the setting **IngnoreInvalidHostnames** please use the FQDN as part of the connection string
 
 ## After deployment, you can do below to verify if the sharding cluster really works or not:
 
-1. SSH connect to the router server, execute below:
+1. Connect to the router server using mongo shell and execute below:
   ```
-  $mongo -u "<mongouser>" -p "<mongopassword>" "admin"
+  $mongo -u "<mongouser>" -p "<mongopassword>" "admin" --host <Mongos fqdn>
 
   db.runCommand( { listshards : 1 } )
 
   exit
   ```
 
-  Upper db.runCommand( { listshards : 1 } ) command will show the sharding cluster details. 
-
-2. You can "shard" any database and collections you want. SSH connect to the router server, execute below:
+2. You can "shard" any database and collections you want. Execute below command from mongo shell:
   ```
-  $mongo -u "<mongouser>" -p "<mongopassword>" "admin"
+  $mongo -u "<mongouser>" -p "<mongopassword>" "admin" --host <Mongos fqdn>
 
   db.runCommand({enableSharding: "<database>" })
 
@@ -51,18 +49,18 @@ The nodes are under the same subnet 10.0.0.0/24. Except the router server, the o
   exit
   ```
 
-3. You can add more shards into this sharding cluster. SSH connect to one of the router server, execute below:
+3. You can add more shards into this sharding cluster. Execute below command from mongo shell:
   ```
-  $mongo -u "<mongouser>" -p "<mongopassword>" "admin"
+  $mongo -u "<mongouser>" -p "<mongopassword>" "admin" --host <Mongos fqdn>
 
-  sh.addShard("<replica set name>/<primary ip>:27017")   
+  sh.addShard("<replica set name>/<primary ip>:27017")
 
   exit
   ```
 
   Before adding your own replica set into the sharding cluster, you should enable internal authentication in your replica set first, and make sure the replica set is accessible through this sharding cluster.
 
-## Known Limitations
+## Note
 - The MongoDB version is 3.6.
 - We expose 1 router server on public address so that you can access MongoDB service through internet directly.
 - This cluster only has 1 shard, you can add more shards after the deployment. 
