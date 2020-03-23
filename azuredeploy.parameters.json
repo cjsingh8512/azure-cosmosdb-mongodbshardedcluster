@@ -15,7 +15,7 @@
       "value": "mongounique"
     },
     "numDataDisks": {
-      "value": "1"
+      "value": 1
     },
     "sizeOfDataDiskInGB": {
       "value": 256
