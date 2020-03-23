@@ -3,7 +3,5 @@
   "type": "QuickStart",
   "itemDisplayName": "Azure MongoDB Sharding Cluster",
   "description": "This template deploys a MongoDB Sharding Cluster on CentOS",
-  "summary": "This templates deploys a MongoDB Sharding Cluster with 1 router server, 3 config server replica set and 1 shard which is a replica set of 4 nodes",
-  "githubUsername": "251744647",
-  "dateUpdated": "2019-12-16"
+  "summary": "This templates deploys a MongoDB Sharding Cluster with 1 router server, 3 config server replica set and 1 shard which is a replica set of 4 nodes"
 }
