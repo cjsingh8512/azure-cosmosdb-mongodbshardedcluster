@@ -139,7 +139,7 @@
           "copy": [
             {
               "name": "dataDisks",
-              "count": "[parameters('numDataDisks')]",
+              "count": "[int(parameters('numDataDisks'))]",
               "input": {
                 "name": "[concat(parameters('namespace'), parameters('vmbasename'), 'vm', '_datadisk', copyIndex('dataDisks'))]",
                 "diskSizeGB": "[parameters('sizeOfDataDiskInGB')]",
