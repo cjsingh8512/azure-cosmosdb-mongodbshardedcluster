@@ -141,7 +141,7 @@
               "name": "dataDisks",
               "count": "[int(parameters('numDataDisks'))]",
               "input": {
-                "name": "[concat(parameters('namespace'), parameters('vmbasename'), 'vm', '_datadisk', copyIndex('dataDisks'))]",
+                "name": "[concat(parameters('namespace'), parameters('vmbasename'), 'vm', '_datadisk', copyIndex('dataDisks',1))]",
                 "diskSizeGB": "[parameters('sizeOfDataDiskInGB')]",
                 "lun": "[copyIndex('dataDisks')]",
                 "caching": "ReadWrite",
